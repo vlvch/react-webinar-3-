@@ -36,6 +36,5 @@ export function createElement(name, props = {}, ...children) {
 export function getPlural(suffixes, num) {
   const plural = new Intl.PluralRules("ru-RU");
   const rule = plural.select(num);
-  console.log(rule)
   return suffixes.get(rule);
 }
