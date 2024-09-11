@@ -59,3 +59,9 @@ body {
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-count {
+  display: flex;
+  align-items: center;
+  width: 90px;
+}

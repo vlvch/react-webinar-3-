@@ -1,5 +1,5 @@
 import React from 'react';
-import { createElement } from './utils.js';
+import { createElement, getPlural } from './utils.js';
 import './styles.css';
 
 /**
@@ -9,6 +9,13 @@ import './styles.css';
  */
 function App({ store }) {
   const list = store.getState().list;
+
+  const suffixes = new Map([
+    ["one", "раз"],
+    ["few", "раза"],
+    ["many", "раз"],
+    ["other", "раза"]
+  ]);
 
   return (
     <div className="App">
@@ -28,6 +35,7 @@ function App({ store }) {
               >
                 <div className="Item-code">{item.code}</div>
                 <div className="Item-title">{item.title}</div>
+                {!!item.count ? <div className="Item-count">Выделяли {item.count} {getPlural(suffixes, item.count)}</div> : null}
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>

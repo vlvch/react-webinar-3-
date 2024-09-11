@@ -26,3 +26,16 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Получение правильного склонения слова
+ * @param suffixes {Map} Объект со склонениями слова
+ * @param num {Number} Число для которого выбирается склонение
+ * @returns {String} Правильное склонение слова
+ */
+export function getPlural(suffixes, num) {
+  const plural = new Intl.PluralRules("ru-RU");
+  const rule = plural.select(num);
+  console.log(rule)
+  return suffixes.get(rule);
+}
