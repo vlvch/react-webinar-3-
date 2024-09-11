@@ -50,18 +50,19 @@ body {
 }
 
 .Item-title {
-  width: 100%;
   padding: 20px 10px;
+  text-wrap: nowrap;
 }
 
 .Item-actions {
   display: flex;
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
+  margin-left: auto;
 }
 
 .Item-count {
-  display: flex;
-  align-items: center;
-  width: 90px;
+  width: 100%;
+  padding: 20px 0;
+  margin-right: auto;
 }
