@@ -4,7 +4,8 @@
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.uniqueNum = initState.list ? initState.list.length : 0;
+    this.usedNumbers = initState.list.map((node) => node.code);
+    this.uniqueNum = 1;
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -44,6 +45,9 @@ class Store {
    * @returns {Number}
    */
   getUniqueNumber() {
+    while (this.usedNumbers.includes(this.uniqueNum)) {
+      this.uniqueNum += 1;
+    }
     this.uniqueNum += 1;
     return this.uniqueNum;
   }

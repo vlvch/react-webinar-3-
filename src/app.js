@@ -37,7 +37,10 @@ function App({ store }) {
                 <div className="Item-title">{item.title}</div>
                 {!!item.count ? <div className="Item-count">| Выделяли {item.count} {getPlural(suffixes, item.count)}</div> : null}
                 <div className="Item-actions">
-                  <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
+                  <button onClick={(e) => {
+                    e.stopPropagation();
+                    store.deleteItem(item.code);
+                  }}>Удалить</button>
                 </div>
               </div>
             </div>
