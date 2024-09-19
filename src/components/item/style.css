@@ -23,3 +23,15 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-price {
+  padding: 20px 24px 20px 0;
+  text-wrap: nowrap;
+  color: #404040;
+}
+
+.Item-count {
+  padding: 20px 14px 20px 38px;
+  text-wrap: nowrap;
+  color: #404040;
+}

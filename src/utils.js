@@ -50,3 +50,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+
+/**
+ * Форматирование числа
+ * @param value {Number} Число, которое нужно форматировать
+ * @returns {String}
+ */
+export function formatNumber(value) {
+  return new Intl.NumberFormat('ru-RU').format(value);
+}
