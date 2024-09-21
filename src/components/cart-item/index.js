@@ -4,8 +4,8 @@ import { formatNumber } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function Item(props) {
-  const cn = bem('Item');
+function CartItem(props) {
+  const cn = bem('CartItem');
 
   const {
     onClick = () => { },
@@ -22,20 +22,22 @@ function Item(props) {
       <div className={cn('code')}>{props.item.code}</div>
       <div className={cn('title')}>{props.item.title}</div>
       <div className={cn('price')}>{formatNumber(props.item.price)} ₽</div>
+      <div className={cn('count')}>{props.item.count} шт</div>
       <div className={cn('actions')}>
-        <button onClick={callbacks.onClick}>Добавить</button>
+        <button onClick={callbacks.onClick}>Удалить</button>
       </div>
     </div>
   );
 }
 
-Item.propTypes = {
+CartItem.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
     title: PropTypes.string,
+    count: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
   onClick: PropTypes.func,
 };
 
-export default React.memo(Item);
+export default React.memo(CartItem);

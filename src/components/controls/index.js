@@ -8,7 +8,7 @@ function Controls(props) {
   const cn = bem('Controls');
 
   const {
-    onOpenCart = () => { },
+    toggleModal = () => { },
   } = props;
 
   return (
@@ -26,13 +26,13 @@ function Controls(props) {
           'пусто'
         }
       </div>
-      <button onClick={() => onOpenCart()}>Перейти</button>
+      <button onClick={() => toggleModal()}>Перейти</button>
     </div>
   );
 }
 
 Controls.propTypes = {
-  onOpenCart: PropTypes.func,
+  toggleModal: PropTypes.func,
   sum: PropTypes.number,
   count: PropTypes.number,
 };

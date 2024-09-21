@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import List from '../list';
 import Head from '../head';
-import { formatNumber } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
@@ -10,32 +8,25 @@ function Modal(props) {
   const cn = bem('Modal');
 
   const {
-    onClick = () => { },
-    onOpenCart = () => { },
+    toggleModal = () => { },
   } = props;
 
   return (
     <div className={cn()}>
       <div className={cn('content')}>
         <Head title={props.title} type={'modal'}>
-          <button onClick={onOpenCart}>Закрыть</button>
+          <button onClick={toggleModal}>Закрыть</button>
         </Head>
-        <div className={cn('space')}></div>
-        <div className={cn('list')}>
-          <List list={props.list} onClick={onClick} type={'modal'} />
-        </div>
-        <div className={cn('footer')}>
-          Итого <span>{formatNumber(props.sum)} ₽</span>
-        </div>
+        {props.children}
       </div>
     </div>
   );
 }
 
 Modal.propTypes = {
-  list: PropTypes.array,
   title: PropTypes.string,
-  onClick: PropTypes.func,
+  toggleModal: PropTypes.func,
+  children: PropTypes.node
 };
 
 export default React.memo(Modal);

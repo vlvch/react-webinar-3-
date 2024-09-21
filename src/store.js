@@ -7,6 +7,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.cart = [];
+    this.cartSum = 0;
+    this.cartCount = 0;
   }
 
   /**
@@ -84,55 +87,86 @@ class Store {
     });
   }
 
-  getCartList() {
-    return this.state.list.filter((item) => {
-      return item.hasOwnProperty('count') && item.count !== 0;
-    })
-  }
-
+  /**
+   * Добавление товара в корзину по коду
+   * @param code
+   */
   addToCart(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          const count = item.hasOwnProperty('count') ? (item.count + 1) : 1;
-          return {
-            ...item,
-            count: count,
-          }
-        } else {
-          return item;
-        }
-      }),
-    })
+    const findedItem = this.state.list.find(item => item.code === code);
+    const itemInCart = this.cart.find(item => item.code === code);
+
+    const newCart = itemInCart ?
+      this.cart.map((item) => item.code === code ? { ...item, count: item.count + 1 } : item)
+      :
+      [...this.cart, { ...findedItem, count: 1 }];
+
+    this.setCart(newCart);
+    this.setCount(newCart.length);
+    this.setSum(newCart.reduce((acc, item) => acc += item.count * item.price, 0));
+
+    for (const listener of this.listeners) listener();
   }
 
+  /**
+   * Удаление товара из корзины по коду
+   * @param code
+   */
   removeFromCart(code) {
-    this.setState({
-      ...this.state,
-      list: this.state.list.map(item => {
-        if (item.code === code) {
-          return {
-            ...item,
-            count: 0,
-          }
-        } else {
-          return item;
-        }
-      }),
-    })
+    const newCart = this.cart.filter(item => item.code !== code);
+
+    this.setCart(newCart);
+    this.setCount(newCart.length);
+    this.setSum(newCart.reduce((acc, item) => acc += (item.count * item.price), 0));
+
+    for (const listener of this.listeners) listener();
   }
 
+  /**
+   * Изменение суммы товара в корзине
+   * @param newSum {Number}
+   */
+  setSum(newSum) {
+    this.cartSum = newSum;
+  }
+
+  /**
+   * Выбор суммы товара в корзине
+   * @returns {Number}
+   */
   getSum() {
-    return this.state.list.reduce((acc, item) => {
-      return acc = item.hasOwnProperty('count') ? (acc + (item.count * item.price)) : acc;
-    }, 0)
+    return this.cartSum;
   }
 
+  /**
+   * Изменение количества товара в корзине
+   * @param newCount {Number}
+   */
+  setCount(newCount) {
+    this.cartCount = newCount;
+  }
+
+  /**
+   * Выбор количества товара в корзине
+   * @returns {Number}
+   */
   getCount() {
-    return this.state.list.reduce((acc, item) => {
-      return acc = item.hasOwnProperty('count') ? (acc + 1) : acc;
-    }, 0)
+    return this.cartCount;
+  }
+
+  /**
+   * Изменение корзины
+   * @param newCart {Array}
+   */
+  setCart(newCart) {
+    this.cart = newCart;
+  }
+
+  /**
+   * Выбор корзины
+   * @returns {Array}
+   */
+  getCart() {
+    return this.cart;
   }
 }
 
