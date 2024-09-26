@@ -1,0 +1,20 @@
+/* Пункт списка */
+.LangControl {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+
+.LangControl-item {
+  height: 30px;
+  width: 40px;
+  background-color: #fff;
+  cursor: pointer;
+  text-align: center;
+  align-content: center;
+}
+
+.LangControl-item_selected {
+  background: #0087e9;
+  color: #fff;
+}

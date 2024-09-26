@@ -33,3 +33,21 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+export function getPaginationList(page, lastPage) {
+  const paginationList = [];
+
+  if (lastPage <= 5) {
+    for (let i = 1; i <= lastPage; i++) {
+      paginationList.push(i);
+    }
+  } else if (page - 1 === 0) {
+    paginationList.push(page, page + 1, page + 2);
+  } else if (page === lastPage) {
+    paginationList.push(page - 2, page - 1, page);
+  } else {
+    paginationList.push(page - 1, page, page + 1);
+  }
+
+  return paginationList;
+}

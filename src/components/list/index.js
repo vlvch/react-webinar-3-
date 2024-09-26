@@ -1,13 +1,18 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item';
 import './style.css';
 
-function List({ list, renderItem }) {
+function List(props) {
+  const {
+    list = [],
+    renderItem = () => { },
+    openArticle = () => { },
+  } = props;
+
   return (
     <div className="List">
       {list.map(item => (
-        <div key={item._id} className="List-item">
+        <div key={item._id} onClick={() => openArticle(item._id)} className="List-item">
           {renderItem(item)}
         </div>
       ))}
@@ -22,10 +27,7 @@ List.propTypes = {
     }),
   ).isRequired,
   renderItem: PropTypes.func,
-};
-
-List.defaultProps = {
-  renderItem: item => {},
+  openArticle: PropTypes.func,
 };
 
 export default memo(List);

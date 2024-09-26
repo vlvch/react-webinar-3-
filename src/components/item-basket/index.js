@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import propTypes from 'prop-types';
 import { numberFormat } from '../../utils';
 import { cn as bem } from '@bem-react/classname';
@@ -6,21 +6,29 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function ItemBasket(props) {
+  const {
+    words = {},
+    item = {},
+    onRemove = () => { },
+  } = props;
+
   const cn = bem('ItemBasket');
 
   const callbacks = {
-    onRemove: e => props.onRemove(props.item._id),
+    onRemove: e => {
+      e.stopPropagation();
+      onRemove(props.item._id);
+    },
   };
 
   return (
     <div className={cn()}>
-      {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <div className={cn('title')}>{props.item.title}</div>
+      <div className={cn('title')}>{item.title}</div>
       <div className={cn('right')}>
-        <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
+        <div className={cn('cell')}>{numberFormat(item.price)} ₽</div>
+        <div className={cn('cell')}>{numberFormat(item.amount || 0)} {words.pcs}</div>
         <div className={cn('cell')}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>{words.remove}</button>
         </div>
       </div>
     </div>
@@ -35,10 +43,7 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
-};
-
-ItemBasket.defaultProps = {
-  onRemove: () => {},
+  words: propTypes.object,
 };
 
 export default memo(ItemBasket);
