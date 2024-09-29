@@ -10,6 +10,11 @@ import Pagination from '../../components/pagination';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '../../components/spinner';
 import LangControl from '../../components/lang-control';
+<<<<<<< HEAD
+=======
+import Menu from '../../components/menu';
+import Navigation from '../../components/navigation';
+>>>>>>> a64aa15 (fix)
 
 function Main() {
   const store = useStore();
@@ -62,7 +67,14 @@ function Main() {
       <Head title={words.shop}>
         <LangControl onClick={callbacks.setLocale} locale={select.locale} />
       </Head>
+<<<<<<< HEAD
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={words} />
+=======
+      <Menu>
+        <Navigation words={words} />
+        <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={words} />
+      </Menu>
+>>>>>>> a64aa15 (fix)
       {!select.loaded && <Spinner />}
       <List list={select.list} renderItem={renders.item} openArticle={callbacks.openArticle} />
       <Pagination pagesCount={select.pages} currentPage={select.currentPage} onClick={callbacks.loadPage} />

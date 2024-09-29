@@ -1,0 +1,11 @@
+.Navigation {
+  padding: 20px;
+  font-size: 18px;
+}
+
+.Navigation-item {
+  margin-right: auto;
+  color: #0087e9;
+  text-decoration: underline;
+  cursor: pointer;
+}

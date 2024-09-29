@@ -13,6 +13,7 @@ function BasketTool(props) {
     words = {},
   } = props;
 
+<<<<<<< HEAD
   const cn = bem('BasketTool');
 
   const navigate = useNavigate();
@@ -20,6 +21,20 @@ function BasketTool(props) {
   return (
     <div className={cn()}>
       <span className={cn('navigate')} onClick={() => navigate('/')}>{words.main}</span>
+=======
+function BasketTool(props) {
+  const {
+    sum = 0,
+    amount = 0,
+    onOpen = () => { },
+    words = {},
+  } = props;
+
+  const cn = bem('BasketTool');
+
+  return (
+    <div className={cn()}>
+>>>>>>> a64aa15 (fix)
       <span className={cn('label')}>{words.incart}:</span>
       <span className={cn('total')}>
         {amount
