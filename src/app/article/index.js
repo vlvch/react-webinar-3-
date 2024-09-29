@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { memo, useCallback } from 'react';
-=======
 import { memo, useCallback, useEffect } from 'react';
->>>>>>> a64aa15 (fix)
 import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
 import PageLayout from '../../components/page-layout';
@@ -11,11 +7,6 @@ import BasketTool from '../../components/basket-tool';
 import ItemArticle from '../../components/item-article';
 import Spinner from '../../components/spinner';
 import LangControl from '../../components/lang-control';
-<<<<<<< HEAD
-
-function Article() {
-  const store = useStore();
-=======
 import Menu from '../../components/menu';
 import Navigation from '../../components/navigation';
 import { useParams } from 'react-router-dom';
@@ -23,7 +14,6 @@ import { useParams } from 'react-router-dom';
 function Article() {
   const store = useStore();
   const params = useParams();
->>>>>>> a64aa15 (fix)
 
   const select = useSelector(state => ({
     amount: state.basket.amount,
@@ -36,11 +26,7 @@ function Article() {
     category: state.article.item.category?.title,
     country: state.article.item.madeIn?.title,
     countryCode: state.article.item.madeIn?.code,
-<<<<<<< HEAD
     price: state.article.item.price,
-=======
-    price: state.article.item?.price,
->>>>>>> a64aa15 (fix)
     loaded: state.article.loaded,
     locale: state.locale.currentLocale,
     words: state.locale.words,
@@ -55,10 +41,6 @@ function Article() {
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
     // Cмена языка
     setLocale: useCallback((locale) => store.actions.locale.setLocale(locale), [store]),
-<<<<<<< HEAD
-  };
-
-=======
     // Загрузка текущего товара и переход на страницу
     openArticle: useCallback(_id => {
       store.actions.modals.close()
@@ -71,20 +53,15 @@ function Article() {
     params.id && callbacks.openArticle(params.id)
   }, [])
 
->>>>>>> a64aa15 (fix)
   return (
     <PageLayout>
       <Head title={select.title}>
         <LangControl onClick={callbacks.setLocale} locale={select.locale} />
       </Head>
-<<<<<<< HEAD
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={words} />
-=======
       <Menu>
         <Navigation words={words} />
         <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount} sum={select.sum} words={words} />
       </Menu>
->>>>>>> a64aa15 (fix)
       {!select.loaded && <Spinner />}
       <ItemArticle
         words={words}
@@ -96,7 +73,7 @@ function Article() {
         country={select.country}
         countryCode={select.countryCode}
         price={select.price} />
-    </PageLayout>
+    </PageLayout >
   );
 }
 

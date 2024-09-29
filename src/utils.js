@@ -34,6 +34,12 @@ export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
 
+/**
+ * Получение массива чисел, для отображения номеров страниц
+ * @param page {Number}
+ * @param lastPage {Number}
+ * @returns {Array}
+ */
 export function getPaginationList(page, lastPage) {
   const paginationList = [];
 
