@@ -1,4 +1,5 @@
 import StoreModule from '../module';
+import { nestedListFormat } from '../../utils';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -16,7 +17,9 @@ class CatalogState extends StoreModule {
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
+      categories: [],
       count: 0,
       waiting: false,
     };
@@ -36,6 +39,7 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+    if (urlParams.has('category')) validParams.category = urlParams.get('category');
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
   }
 
@@ -79,12 +83,15 @@ class CatalogState extends StoreModule {
       window.history.pushState({}, '', url);
     }
 
+    const searchCategory = params.category ? { 'search[category]': params.category } : '';
+
     const apiParams = {
       limit: params.limit,
       skip: (params.page - 1) * params.limit,
       fields: 'items(*),count',
       sort: params.sort,
       'search[query]': params.query,
+      ...searchCategory,
     };
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
@@ -99,6 +106,25 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
+
+  /**
+   * Инициализация спика категорий.
+   */
+  async initCategoryList() {
+    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
+    const json = await response.json();
+
+    const categories = nestedListFormat(json.result.items)
+
+    this.setState(
+      {
+        ...this.getState(),
+        categories: [{ value: '', title: 'Все' }, ...categories],
+      },
+      'Загружен список категорий',
+    );
+  }
+
 }
 
 export default CatalogState;

@@ -8,6 +8,7 @@ import Head from '../../components/head';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import LoginTool from '../../containers/login-tool';
 
 /**
  * Главная страница - первичная загрузка каталога
@@ -18,6 +19,8 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
+      store.actions.catalog.initCategoryList();
+      store.actions.login.initLogin();
     },
     [],
     true,
@@ -27,6 +30,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <LoginTool />
       <Head title={t('title')}>
         <LocaleSelect />
       </Head>

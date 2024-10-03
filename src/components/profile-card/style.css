@@ -1,0 +1,21 @@
+.ProfileCard {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  gap: 20px;
+}
+.ProfileCard-title {
+  font-size: 24px;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+.ProfileCard-prop {
+  display: flex;
+  font-size: 18px;
+  gap: 5px;
+}
+
+.ProfileCard-value {
+  font-weight: 700;
+}

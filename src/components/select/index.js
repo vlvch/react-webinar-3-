@@ -11,7 +11,7 @@ function Select(props) {
     <select className="Select" value={props.value} onChange={onSelect}>
       {props.options.map(item => (
         <option key={item.value} value={item.value}>
-          {item.title}
+          {item.nested ? ' - '.repeat(item.nested) : null}{item.title}
         </option>
       ))}
     </select>
@@ -30,7 +30,7 @@ Select.propTypes = {
 };
 
 Select.defaultProps = {
-  onChange: () => {},
+  onChange: () => { },
 };
 
 export default memo(Select);

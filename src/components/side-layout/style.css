@@ -28,6 +28,15 @@
   padding: 20px;
 }
 
-.SideLayout-item {
+.SideLayout-item_margin_small {
   margin: 0 5px;
+}
+
+.SideLayout-item_margin_medium {
+  margin: 0 10px;
+}
+
+.SideLayout_border_bottom {
+  border-bottom: 1px solid #dcdcdc;
+  margin: 0;
 }

@@ -1,0 +1,18 @@
+.LoginCard {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 200px;
+  padding: 40px 20px;
+
+  gap: 20px;
+}
+
+.LoginCard-title {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.LoginCard-error {
+  color: #ff0000;
+}

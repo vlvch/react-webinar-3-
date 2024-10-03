@@ -33,3 +33,41 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+
+/**
+ * Форматирование списка
+ */
+export function nestedListFormat(list) {
+  const children = [];
+  const result = list
+    .map((item) => ({ ...item, value: item._id }))
+    .filter((item) => {
+      if (!item.parent) {
+        return true;
+      } else {
+        children.unshift(item);
+        return false;
+      }
+    })
+    .map((item) => ({ ...item, nested: 0 }))
+
+  function sortList(list) {
+    const restList = list.filter((item) => {
+      const parentIndex = result.findIndex((node) => node._id === item.parent?._id);
+
+      if (parentIndex !== -1) {
+        const nested = result[parentIndex].nested + 1;
+        result.splice(parentIndex + 1, 0, { ...item, nested: nested });
+        return false;
+      } else {
+        return true;
+      }
+    });
+    restList.length > 0 && sortList(restList);
+  }
+
+  sortList(children);
+
+  return result;
+}
