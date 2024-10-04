@@ -4,7 +4,15 @@ import { cn as bem } from '@bem-react/classname';
 import './style.css';
 import Input from '../input';
 
-function LoginCard({ onLogIn, t, onChange, error, errorMessages = [] }) {
+function LoginCard(props) {
+  const {
+    errorMessages = [],
+    error = false,
+    t = () => { },
+    onLogIn = () => { },
+    onChange = () => { },
+  } = props;
+
   const cn = bem('LoginCard');
 
   return (
@@ -13,19 +21,19 @@ function LoginCard({ onLogIn, t, onChange, error, errorMessages = [] }) {
       <div className={cn('input')}>
         <div>{t('login.login')}</div>
         <Input
-          value={''}
-          name={'login'}
-          onChange={onChange}
-          delay={1000} />
+          propsValue={''}
+          propsName={'login'}
+          propsOnChange={onChange}
+          propsDelay={1000} />
       </div >
       <div className={cn('input')}>
         <div>{t('login.password')}</div>
         <Input
-          value={''}
-          type={'password'}
-          name={'password'}
-          onChange={onChange}
-          delay={1000} />
+          propsValue={''}
+          propsType={'password'}
+          propsName={'password'}
+          propsOnChange={onChange}
+          propsDelay={1000} />
       </div>
       {
         error

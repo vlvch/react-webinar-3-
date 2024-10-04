@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function SideLayout({ children, side, padding, border, margin = 'small' }) {
+function SideLayout(props) {
+  const {
+    side = '',
+    padding = '',
+    border = '',
+    children = <></>,
+    margin = 'small'
+  } = props;
+
   const cn = bem('SideLayout');
   return (
     <div className={cn({ side, padding, border })}>
@@ -23,7 +31,5 @@ SideLayout.propTypes = {
   border: PropTypes.oneOf(['bottom']),
   marginItem: PropTypes.oneOf(['small', 'medium'])
 };
-
-SideLayout.defaultProps = {};
 
 export default memo(SideLayout);

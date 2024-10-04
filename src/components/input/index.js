@@ -6,12 +6,22 @@ import debounce from 'lodash.debounce';
 import './style.css';
 
 function Input(props) {
+  const {
+    propsName = '',
+    propsValue = '',
+    propsTheme = '',
+    propsType = '',
+    propsPlaceholder = '',
+    propsDelay = 600,
+    propsOnChange = () => { },
+  } = props;
+
   // Внутренний стейт для быстрого отображения ввода
-  const [value, setValue] = useState(props.value);
+  const [value, setValue] = useState(propsValue);
 
   const onChangeDebounce = useCallback(
-    debounce(value => props.onChange(value, props.name), 600),
-    [props.onChange, props.name],
+    debounce(value => propsOnChange(value, propsName), propsDelay),
+    [propsOnChange, propsName],
   );
 
   // Обработчик изменений в поле
@@ -21,15 +31,15 @@ function Input(props) {
   };
 
   // Обновление стейта, если передан новый value
-  useLayoutEffect(() => setValue(props.value), [props.value]);
+  useLayoutEffect(() => setValue(propsValue), [propsValue]);
 
   const cn = bem('Input');
   return (
     <input
-      className={cn({ theme: props.theme })}
+      className={cn({ theme: propsTheme })}
       value={value}
-      type={props.type}
-      placeholder={props.placeholder}
+      type={propsType}
+      placeholder={propsPlaceholder}
       onChange={onChange}
     />
   );
@@ -42,12 +52,6 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   onChange: PropTypes.func,
   theme: PropTypes.string,
-};
-
-Input.defaultProps = {
-  onChange: () => { },
-  type: 'text',
-  theme: '',
 };
 
 export default memo(Input);

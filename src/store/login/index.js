@@ -32,7 +32,6 @@ class LoginState extends StoreModule {
       const json = await response.json();
 
       if (json.result) {
-        console.log(json.result)
         this.setState(
           {
             ...this.getState(),

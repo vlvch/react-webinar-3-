@@ -49,11 +49,11 @@ function CatalogFilter() {
       <Select options={select.categories} value={select.category} onChange={callbacks.onChangeCategory} />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
-        value={select.query}
-        onChange={callbacks.onSearch}
-        placeholder={'Поиск'}
-        delay={1000}
-        theme={'big'}
+        propsValue={select.query}
+        propsOnChange={callbacks.onSearch}
+        propsPlaceholder={'Поиск'}
+        propsDelay={1000}
+        propsTheme={'big'}
       />
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
