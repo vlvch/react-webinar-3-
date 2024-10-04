@@ -7,7 +7,7 @@ import './style.css';
 function ArticleCard(props) {
   const {
     article = {},
-    t = () => { },
+    t = text => text,
     onAdd = () => { },
   } = props;
 
