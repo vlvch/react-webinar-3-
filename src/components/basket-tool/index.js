@@ -9,7 +9,7 @@ function BasketTool(props) {
     amount = 0,
     sum = 0,
     onOpen = () => { },
-    t = () => { },
+    t = text => text,
   } = props;
 
   const cn = bem('BasketTool');

@@ -8,7 +8,7 @@ function LoginCard(props) {
   const {
     errorMessages = [],
     error = false,
-    t = () => { },
+    t = text => text,
     onLogIn = () => { },
     onChange = () => { },
   } = props;

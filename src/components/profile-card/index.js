@@ -3,7 +3,14 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ProfileCard({ t, username, email, phone }) {
+function ProfileCard(props) {
+  const {
+    phone = '',
+    email = '',
+    username = '',
+    t = text => text,
+  } = props;
+
   const cn = bem('ProfileCard');
   return (
     <div className={cn()}>
