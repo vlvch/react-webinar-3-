@@ -5,6 +5,7 @@ import useSelector from '../../hooks/use-selector';
 import Select from '../../components/select';
 import Input from '../../components/input';
 import SideLayout from '../../components/side-layout';
+import { nestedListFormat } from '../../utils';
 
 /**
  * Контейнер со всеми фильтрами каталога
@@ -16,7 +17,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     category: state.catalog.params.category,
-    categories: state.catalog.categories
+    categories: state.categories.categories
   }));
 
   const callbacks = {
@@ -44,9 +45,11 @@ function CatalogFilter() {
 
   const { t } = useTranslate();
 
+  const categories = nestedListFormat(select.categories);
+
   return (
     <SideLayout padding="medium">
-      <Select options={select.categories} value={select.category} onChange={callbacks.onChangeCategory} />
+      <Select options={categories} value={select.category} onChange={callbacks.onChangeCategory} />
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort} />
       <Input
         propsValue={select.query}

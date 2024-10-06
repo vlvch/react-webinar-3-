@@ -19,8 +19,8 @@ function Main() {
   useInit(
     () => {
       store.actions.catalog.initParams();
-      store.actions.catalog.initCategoryList();
-      store.actions.login.initLogin();
+      store.actions.categories.initCategories();
+      store.actions.session.initSession();
     },
     [],
     true,

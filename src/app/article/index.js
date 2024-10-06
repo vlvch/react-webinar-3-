@@ -23,7 +23,7 @@ function Article() {
 
   useInit(() => {
     store.actions.article.load(params.id);
-    store.actions.login.initLogin();
+    store.actions.session.initSession();
   }, [params.id]);
 
   const select = useSelector(state => ({

@@ -1,5 +1,4 @@
 import StoreModule from '../module';
-import { nestedListFormat } from '../../utils';
 
 /**
  * Состояние каталога - параметры фильтра и список товара
@@ -19,7 +18,6 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      categories: [],
       count: 0,
       waiting: false,
     };
@@ -106,25 +104,6 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
-
-  /**
-   * Инициализация спика категорий.
-   */
-  async initCategoryList() {
-    const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*');
-    const json = await response.json();
-
-    const categories = nestedListFormat(json.result.items)
-
-    this.setState(
-      {
-        ...this.getState(),
-        categories: [{ value: '', title: 'Все' }, ...categories],
-      },
-      'Загружен список категорий',
-    );
-  }
-
 }
 
 export default CatalogState;

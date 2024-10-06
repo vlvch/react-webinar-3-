@@ -13,31 +13,31 @@ import ProfileCard from '../../components/profile-card';
 import Spinner from '../../components/spinner';
 
 /**
- * Главная страница - первичная загрузка каталога
+ * Страница профиля
  */
 function Profile() {
   const store = useStore();
 
+  const select = useSelector(state => ({
+    waiting: false,
+    username: state.profile.profile.name,
+    email: state.profile.email,
+    phone: state.profile.profile.phone,
+  }));
+
   useInit(
     () => {
-      store.actions.login.initLogin();
+      store.actions.session.initSession()
+      store.actions.profile.loadProfile()
     },
     [],
     true,
   );
 
-  const select = useSelector(state => ({
-    waiting: state.login.waiting,
-    logged: state.login.logged,
-    username: state.login.user.profile?.name,
-    email: state.login.user.email,
-    phone: state.login.user.profile?.phone,
-  }));
-
   const { t } = useTranslate();
 
   return (
-    <AccessCheck redirect={'/login'} access={!select.logged}>
+    <AccessCheck redirect={'/login'} needAuth={true}>
       <PageLayout>
         <LoginTool />
         <Head title={t('title')}>

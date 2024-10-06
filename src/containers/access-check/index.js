@@ -1,17 +1,27 @@
-import { memo } from 'react';
-import { Navigate } from 'react-router-dom';
+import { memo, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useSelector from '../../hooks/use-selector';
 
 /**
  * Проверка доступа
  */
-function AccessCheck({ redirect, access, children }) {
+function AccessCheck({ redirect, needAuth, children }) {
+  const navigate = useNavigate();
+
+  const select = useSelector(state => ({
+    logged: state.session.logged,
+  }));
+
+  useEffect(() => {
+    if (needAuth !== select.logged) {
+      navigate(redirect);
+    }
+  }, [select.logged])
+
   return (
-    <>
-      {access && <Navigate to={redirect} />}
-      <div className='AccessCheck'>
-        {children}
-      </div>
-    </>
+    <div className='AccessCheck'>
+      {children}
+    </div>
   );
 }
 

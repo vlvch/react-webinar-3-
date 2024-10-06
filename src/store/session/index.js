@@ -3,10 +3,10 @@ import StoreModule from '../module';
 /**
  * Состояние авторизации
  */
-class LoginState extends StoreModule {
+class SessionState extends StoreModule {
   initState() {
     return {
-      user: {},
+      username: '',
       logged: false,
       error: false,
       errorMessages: [],
@@ -18,11 +18,11 @@ class LoginState extends StoreModule {
   /**
    * Авторизации с помощью токена
    */
-  async initLogin() {
+  async initSession() {
     const token = window.localStorage.getItem('token');
 
     if (token) {
-      const response = await fetch('/api/v1/users/self?fields=profile,email', {
+      const response = await fetch('/api/v1/users/self?fields=profile', {
         method: 'GET',
         headers: {
           'X-Token': token,
@@ -31,13 +31,15 @@ class LoginState extends StoreModule {
       });
       const json = await response.json();
 
+      const { profile } = json.result;
+
       if (json.result) {
         this.setState(
           {
             ...this.getState(),
             logged: true,
             token: token,
-            user: json.result
+            username: profile.name,
           },
           'Авторизация через токен прошла успешно',
         );
@@ -74,11 +76,12 @@ class LoginState extends StoreModule {
       );
     } else {
       window.localStorage.setItem('token', json.result.token);
+      const { name } = json.result.user.profile;
       this.setState(
         {
           ...this.getState(),
           token: json.result.token,
-          user: json.result.user,
+          username: name,
           logged: true,
           error: false,
           waiting: false
@@ -111,6 +114,10 @@ class LoginState extends StoreModule {
       setInterval(() => this.logOut(), 5000)
     }
   }
+
+  async resetErrors() {
+    this.setState({ ...this.getState(), error: false, errorMessages: [] })
+  }
 }
 
-export default LoginState;
+export default SessionState;

@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
 import useInit from '../../hooks/use-init';
@@ -12,23 +13,27 @@ import useSelector from '../../hooks/use-selector';
 import AccessCheck from '../../containers/access-check';
 import Spinner from '../../components/spinner';
 
+/**
+ * Страница авторизации
+ */
 function Login() {
   const store = useStore();
   const [loginData, setLoginData] = useState({ login: '', password: '' });
 
   useInit(
     () => {
-      store.actions.login.initLogin();
+      store.actions.session.initSession();
+      store.actions.session.resetErrors();
     },
     [],
     true,
   );
 
   const select = useSelector(state => ({
-    logged: state.login.logged,
-    waiting: state.login.waiting,
-    error: state.login.error,
-    errorMessages: state.login.errorMessages,
+    waiting: state.session.waiting,
+    error: state.session.error,
+    errorMessages: state.session.errorMessages,
+    userId: state.session.userId
   }));
 
   const callbacks = {
@@ -37,13 +42,15 @@ function Login() {
       setLoginData({ ...loginData, [target]: value })
     }),
     // Авторизация
-    onLogIn: useCallback(() => store.actions.login.logIn(loginData), [loginData]),
+    onLogIn: useCallback(() => {
+      store.actions.session.logIn(loginData)
+    }, [loginData]),
   }
 
   const { t } = useTranslate();
 
   return (
-    <AccessCheck redirect={'/profile'} access={select.logged}>
+    <AccessCheck redirect={-1} needAuth={false}>
       <PageLayout>
         <LoginTool />
         <Head title={t('title')}>

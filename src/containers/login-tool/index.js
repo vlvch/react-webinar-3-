@@ -14,20 +14,20 @@ function LoginTool() {
   const location = useLocation();
 
   const select = useSelector(state => ({
-    logged: state.login.logged,
-    username: state.login.user.profile?.name
+    logged: state.session.logged,
+    username: state.session.username,
   }));
 
   const callbacks = {
-    onLogIn: useCallback(() => { if (location.pathname !== '/login') navigate('login') }),
-    onLogOut: useCallback(() => store.actions.login.logOut(), [store]),
+    onLogIn: useCallback(() => { if (location.pathname !== '/login') navigate('/login') }),
+    onLogOut: useCallback(() => store.actions.session.logOut(), [store]),
   };
 
   const { t } = useTranslate();
 
   return (
     <SideLayout padding="small" side={'end'} border={'bottom'} margin={'medium'} >
-      <Link to={'/profile'}>
+      <Link to={`/profile`}>
         {select.username}
       </Link>
       <button onClick={() => select.logged ? callbacks.onLogOut() : callbacks.onLogIn()}>
