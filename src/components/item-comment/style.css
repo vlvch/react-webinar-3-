@@ -1,0 +1,27 @@
+.ItemComment {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.ItemComment-cell {
+  max-width: 100%;
+  display: flex;
+  gap: 10px;
+}
+
+.ItemComment-text {
+  max-width: 100%;
+  font-size: 14px;
+  overflow-wrap: break-word;
+}
+
+.ItemComment-name {
+  font-weight: 700;
+}
+
+.ItemComment-answer {
+  color: #0087e9;
+  cursor: pointer;
+}

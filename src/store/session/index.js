@@ -99,7 +99,6 @@ class SessionState extends StoreModule {
       this.services.api.setHeader(this.config.tokenHeader, token);
       // Проверяем токен выбором своего профиля
       const res = await this.services.api.request({ url: '/api/v1/users/self' });
-
       if (res.data.error) {
         // Удаляем плохой токен
         window.localStorage.removeItem('token');

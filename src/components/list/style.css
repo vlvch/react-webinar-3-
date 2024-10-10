@@ -8,3 +8,17 @@
 .List-item:first-child {
   border-top: 1px dashed #ccc;
 }
+
+.List-item_border_false {
+  border: none;
+}
+
+.List-item_border_false:first-child {
+  border: none;
+}
+
+.List_gap_medium {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
