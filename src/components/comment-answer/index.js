@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function CommentAnswer({ t, onClick, onCancel, _id }) {
+function CommentAnswer(props) {
+  const { t = text => text,
+    onClick = () => { },
+    onCancel = () => { },
+    _id = ''
+  } = props;
+
   const [text, setText] = useState('');
 
   const cn = bem("CommentAnswer");
@@ -23,7 +29,10 @@ function CommentAnswer({ t, onClick, onCancel, _id }) {
 }
 
 CommentAnswer.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
+  onClick: PropTypes.func,
+  onCancel: PropTypes.func,
+  _id: PropTypes.string
 };
 
 export default memo(CommentAnswer);

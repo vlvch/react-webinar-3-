@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
 import './style.css';
 
-function ArticleAnswer({ t, onClick }) {
+function ArticleAnswer(props) {
+  const { t = text => text, onClick = () => { } } = props;
+
   const [text, setText] = useState('');
 
   const cn = bem("ArticleAnswer");
@@ -22,7 +24,8 @@ function ArticleAnswer({ t, onClick }) {
 }
 
 ArticleAnswer.propTypes = {
-  t: PropTypes.func
+  t: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 export default memo(ArticleAnswer);

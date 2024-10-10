@@ -16,10 +16,14 @@ import ArticleStub from '../../components/article-stub';
 import CommentAnswer from '../../components/comment-answer';
 import CommentStub from '../../components/comment-stub';
 import commentsFormat from '../../utils/comments-format';
+import PropTypes from 'prop-types';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Comments(props) {
   const { id = '' } = props
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedId, setSelectedId] = useState(id);
 
   useInit(() => {
@@ -32,10 +36,10 @@ function Comments(props) {
       count: state.comments.count,
       waiting: state.comments.waiting,
       token: state.session?.token,
+      id: state.article.data._id
     }),
     shallowequal,
   );
-
   const oldSelect = useOldSelector(
     state => ({
       token: state.session.token,
@@ -56,6 +60,10 @@ function Comments(props) {
       setSelectedId(id);
       dispatch(commentsActions.sendAnswer(oldSelect.user, _id, text, oldSelect.token))
     }, [oldSelect.token]),
+    // Переход к авторизации
+    onSignIn: useCallback(() => {
+      navigate('/login', { state: { back: location.pathname } });
+    }, [location.pathname]),
   };
 
   const { t } = useTranslate();
@@ -80,9 +88,9 @@ function Comments(props) {
               ||
               (item.children.length === 0 && selectedId === item._id))
             &&
-            <ProtectedAnswer>
+            <ProtectedAnswer scroll={true}>
               <CommentAnswer t={t} onClick={callbacks.onAnswer} onCancel={callbacks.onCancel} _id={selectedId} />
-              <CommentStub t={t} onCancel={callbacks.onCancel} />
+              <CommentStub t={t} onCancel={callbacks.onCancel} onSignIn={callbacks.onSignIn} />
             </ProtectedAnswer>
           }
         </ItemComment>
@@ -92,19 +100,23 @@ function Comments(props) {
   };
 
   return (
-    <SideLayout side={'start'} padding={'large'}>
+    <SideLayout side={'start'} padding={'large'} width={'100'}>
       <Spinner active={select.waiting}>
         <HeadComments count={select.count} t={t} />
         <List list={options.comments} renderItem={renders.item} gap={'medium'} border={'false'} />
         {selectedId === id &&
           <ProtectedAnswer>
             <ArticleAnswer t={t} onClick={callbacks.onComment} />
-            <ArticleStub t={t} />
+            <ArticleStub t={t} onSignIn={callbacks.onSignIn} />
           </ProtectedAnswer>
         }
       </Spinner>
     </SideLayout>
   );
 }
+
+Comments.PropTypes = {
+  id: PropTypes.string,
+};
 
 export default memo(Comments);

@@ -2,7 +2,9 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
 
-function HeadComments({ t, count }) {
+function HeadComments(props) {
+  const { t = text => text, count = 0 } = props
+
   return (
     <div className="HeadComments">
       {`${t('comments.title')} (${count})`}
@@ -11,8 +13,8 @@ function HeadComments({ t, count }) {
 }
 
 HeadComments.propTypes = {
-  title: PropTypes.node,
-  children: PropTypes.node,
+  t: PropTypes.func,
+  count: PropTypes.number,
 };
 
 export default memo(HeadComments);

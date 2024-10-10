@@ -33,12 +33,14 @@ function ItemComment(props) {
 }
 
 ItemComment.propTypes = {
-  onRemove: PropTypes.func,
+  onSelect: PropTypes.func,
   _id: PropTypes.string,
   labelText: PropTypes.string,
   labelDate: PropTypes.string,
   labelName: PropTypes.string,
   labelAnswer: PropTypes.string,
+  level: PropTypes.number,
+  children: PropTypes.node
 };
 
 export default memo(ItemComment);

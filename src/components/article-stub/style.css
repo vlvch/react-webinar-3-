@@ -3,8 +3,10 @@
   padding-top: 30px;
 }
 
-.ArticleStub a {
+.ArticleStub span {
   font-size: 16px;
   padding-top: 30px;
   color: #0087e9;
+  cursor: pointer;
+  text-decoration: underline;
 }

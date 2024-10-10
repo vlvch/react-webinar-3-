@@ -33,6 +33,9 @@
 }
 
 .SideLayout-item {
-  max-width: 100%;
   margin: 0 5px;
+}
+
+.SideLayout-item_width_100 {
+  width: 100%;
 }
