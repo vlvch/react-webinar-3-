@@ -21,7 +21,6 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case 'comments/send-success':
-      console.log(state.items)
       return { ...state, items: [...state.items, action.payload.data], count: state.count + 1, waiting: false }
 
     case 'comments/send-error':

@@ -44,6 +44,7 @@ function Comments(props) {
     state => ({
       token: state.session.token,
       user: state.session.user,
+      userId: state.session.user._id
     }),
     shallowequal,
   )
@@ -54,11 +55,16 @@ function Comments(props) {
     // Сброс ответа
     onCancel: useCallback(() => setSelectedId(id), [selectedId]),
     // Отправка комментария
-    onComment: useCallback((text) => dispatch(commentsActions.sendComment(oldSelect.user, id, text, oldSelect.token)), [oldSelect.token]),
+    onComment: useCallback((text) => {
+      text.trim().length &&
+        dispatch(commentsActions.sendComment(oldSelect.user, id, text, oldSelect.token, 'article'))
+    }, [oldSelect.token]),
     // Отправка ответа 
     onAnswer: useCallback((_id, text) => {
-      setSelectedId(id);
-      dispatch(commentsActions.sendAnswer(oldSelect.user, _id, text, oldSelect.token))
+      if (text.trim().length) {
+        setSelectedId(id)
+        dispatch(commentsActions.sendComment(oldSelect.user, _id, text, oldSelect.token, 'comment'))
+      }
     }, [oldSelect.token]),
     // Переход к авторизации
     onSignIn: useCallback(() => {
@@ -68,34 +74,35 @@ function Comments(props) {
 
   const { t } = useTranslate();
 
+  const commentSpace = selectedId === id ?
+    null
+    :
+    { _id: 'commentSpace', commentSpace: true, parent: { _id: selectedId } };
+
   const options = {
-    comments: useMemo(() => commentsFormat(select.comments), [select.comments],),
+    comments: useMemo(() => commentsFormat(select.comments, commentSpace), [select.comments, commentSpace],),
   };
 
   const renders = {
     item: useCallback(
       item => (
-        <ItemComment
-          _id={item._id}
-          labelText={item.text}
-          labelDate={item.dateCreate}
-          labelName={item.author?.profile?.name}
-          level={item.level}
-          onSelect={() => callbacks.onSelect(item._id)}
-        >
-          {
-            ((selectedId !== id && selectedId === item.parent._id && item.last)
-              ||
-              (item.children.length === 0 && selectedId === item._id))
-            &&
-            <ProtectedAnswer scroll={true}>
-              <CommentAnswer t={t} onClick={callbacks.onAnswer} onCancel={callbacks.onCancel} _id={selectedId} />
-              <CommentStub t={t} onCancel={callbacks.onCancel} onSignIn={callbacks.onSignIn} />
-            </ProtectedAnswer>
-          }
-        </ItemComment>
+        item.hasOwnProperty('commentSpace') ?
+          <ProtectedAnswer scroll={true}>
+            <CommentAnswer level={item.level} t={t} onClick={callbacks.onAnswer} onCancel={callbacks.onCancel} _id={selectedId} />
+            <CommentStub level={item.level} t={t} onCancel={callbacks.onCancel} onSignIn={callbacks.onSignIn} />
+          </ProtectedAnswer>
+          :
+          <ItemComment
+            labelText={item.text}
+            labelDate={item.dateCreate}
+            labelName={item.author?.profile?.name}
+            labelAnswer={t("comment.answer")}
+            level={item.level}
+            onSelect={() => callbacks.onSelect(item._id)}
+            color={item.author._id === oldSelect.userId ? 'gray' : 'black'}
+          />
       ),
-      [selectedId, t],
+      [selectedId, t, oldSelect.userId],
     ),
   };
 

@@ -16,7 +16,7 @@ function ProtectedAnswer(props) {
         inline: 'center'
       });
     }
-  }, [])
+  }, [children])
 
   const select = useSelector(state => ({
     exists: state.session.exists,

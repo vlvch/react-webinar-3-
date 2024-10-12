@@ -26,12 +26,21 @@
   "comments.title": "Комментарии",
   "article.answer.title": "Новый комментарий",
   "article.answer.send": "Отправить",
+  "comment.answer": "Ответить",
   "comment.answer.title": "Новый ответ",
   "comment.answer.send": "Отправить",
   "comment.answer.cancel": "Отмена",
   "comment.stub.link": "Войдите",
   "comment.stub.text": ", чтобы иметь возможность ответить. ",
   "comment.stub.cancel": "Отмена",
+  "article.edition": "Год выпуска:",
+  "article.category": "Категория:",
+  "article.country": "Страна произдовитель:",
+  "article.price": "Цена:",
   "article.stub.link": "Войдите",
-  "article.stub.text": ", чтобы иметь возможность комментировать"
+  "article.stub.text": ", чтобы иметь возможность комментировать",
+  "profile.title": "Профиль",
+  "profile.username": "Имя:",
+  "profile.email": "email:",
+  "profile.phone": "Телефон:"
 }

@@ -20,10 +20,10 @@ export default {
       }
     };
   },
-  sendComment: (user, parentId, text, token) => {
+  sendComment: (user, parentId, text, token, type) => {
     const data = {
       "text": text,
-      "parent": { "_id": parentId, "_type": "article" }
+      "parent": { "_id": parentId, "_type": type }
     }
     return async (dispatch, getState, services) => {
       dispatch({ type: 'comments/send-start' });
@@ -39,31 +39,6 @@ export default {
         // Комментарий отправлен успешно
         dispatch({ type: 'comments/send-success', payload: { data: { ...res.data.result, author: user } } });
       } catch (e) {
-        //Ошибка загрузки
-        dispatch({ type: 'comments/send-error' });
-      }
-    }
-  },
-  sendAnswer: (user, parentId, text, token) => {
-    const data = {
-      "text": text,
-      "parent": { "_id": parentId, "_type": "comment" }
-    }
-    return async (dispatch, getState, services) => {
-      dispatch({ type: 'comments/send-start' });
-      try {
-        const res = await services.api.request({
-          url: '/api/v1/comments',
-          method: 'POST',
-          headers: {
-            'X-Token': token,
-          },
-          body: JSON.stringify(data),
-        });
-        // Комментарий отправлен успешно
-        dispatch({ type: 'comments/send-success', payload: { data: { ...res.data.result, author: user } } });
-      } catch (e) {
-        console.log(e)
         //Ошибка загрузки
         dispatch({ type: 'comments/send-error' });
       }

@@ -10,15 +10,16 @@ function ItemComment(props) {
     labelText = '',
     labelAnswer = 'Ответить',
     level = 0,
-    children = <></>
+    children = <></>,
+    color = 'black',
   } = props;
 
   const cn = bem('ItemComment');
 
   return (
-    <div className={cn()} style={{ paddingLeft: (level * 30) + 'px' }}>
+    <div className={cn()} style={{ paddingLeft: ((level > 15 ? 15 : level) * 30) + 'px' }}>
       <div className={cn('cell')}>
-        <div className={cn('name')}>{labelName}</div>
+        <div className={cn('name', { color })}>{labelName}</div>
         <div className={cn('date')}>{labelDate}</div>
       </div>
       <div className={cn('cell')}>
@@ -40,7 +41,8 @@ ItemComment.propTypes = {
   labelName: PropTypes.string,
   labelAnswer: PropTypes.string,
   level: PropTypes.number,
-  children: PropTypes.node
+  children: PropTypes.node,
+  color: PropTypes.oneOf(['gray', 'black'])
 };
 
 export default memo(ItemComment);

@@ -21,6 +21,10 @@
   font-weight: 700;
 }
 
+.ItemComment-name_color_gray {
+  color: #666666;
+}
+
 .ItemComment-answer {
   color: #0087e9;
   cursor: pointer;

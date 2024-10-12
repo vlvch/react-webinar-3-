@@ -24,12 +24,21 @@
   "comments.title": "Comments",
   "article.answer.title": "New comment",
   "article.answer.send": "Send",
+  "comment.answer": "Answer",
   "comment.answer.title": "New answer",
   "comment.answer.send": "Send",
   "comment.answer.cancel": "Cancel",
   "comment.stub.link": "Login",
   "comment.stub.text": ", to be able to answer. ",
   "comment.stub.cancel": "Cancel",
+  "article.edition": "Edition:",
+  "article.category": "Category:",
+  "article.country": "Сountry of origin:",
+  "article.price": "Price:",
   "article.stub.link": "Login",
-  "article.stub.text": ", to be able to comment"
+  "article.stub.text": ", to be able to comment",
+  "profile.title": "Profile",
+  "profile.username": "Username:",
+  "profile.email": "email:",
+  "profile.phone": "Phone:"
 }

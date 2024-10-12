@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import './style.css';
 
 function Select(props) {
-  const { onChange = () => {} } = props;
+  const { onChange = () => { }, value = '', options = [] } = props;
   const onSelect = e => {
-    props.onChange(e.target.value);
+    onChange(e.target.value);
   };
 
   return (
-    <select className="Select" value={props.value} onChange={onSelect}>
-      {props.options.map(item => (
+    <select className="Select" value={value} onChange={onSelect}>
+      {options.map(item => (
         <option key={item.value} value={item.value}>
           {item.title}
         </option>

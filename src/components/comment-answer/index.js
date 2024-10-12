@@ -7,7 +7,8 @@ function CommentAnswer(props) {
   const { t = text => text,
     onClick = () => { },
     onCancel = () => { },
-    _id = ''
+    _id = '',
+    level = 0,
   } = props;
 
   const [text, setText] = useState('');
@@ -15,7 +16,7 @@ function CommentAnswer(props) {
   const cn = bem("CommentAnswer");
 
   return (
-    <div className={cn()} >
+    <div className={cn()} style={{ paddingLeft: ((level > 15 ? 15 : level) * 30) + 'px' }}>
       <div className={cn('title')}>{t('comment.answer.title')}</div>
       <div className={cn('input')}>
         <textarea value={text} onChange={(e) => setText(e.target.value)}></textarea>
@@ -32,7 +33,8 @@ CommentAnswer.propTypes = {
   t: PropTypes.func,
   onClick: PropTypes.func,
   onCancel: PropTypes.func,
-  _id: PropTypes.string
+  _id: PropTypes.string,
+  level: PropTypes.number
 };
 
 export default memo(CommentAnswer);
